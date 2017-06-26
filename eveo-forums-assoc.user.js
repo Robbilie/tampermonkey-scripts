@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
-// @namespace    https://utils.space/
-// @version      1.0.0
+// @namespace    https://github.com/Robbilie/tampermonkey-scripts/
+// @version      1.0.1
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://meta.eveonline.com/*
