@@ -6,8 +6,8 @@
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://meta.eveonline.com/*
 // @grant        none
-// @downloadURL  https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.js
-// @updateURL    https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.js
+// @downloadURL  https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.user.js
+// @updateURL    https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.user.js
 // ==/UserScript==
 
 window.addEventListener("load", function () {
