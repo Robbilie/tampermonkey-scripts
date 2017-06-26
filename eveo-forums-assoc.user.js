@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.2
+// @version      1.0.3
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://meta.eveonline.com/*
@@ -26,12 +26,14 @@ window.addEventListener("load", function () {
                 profile.target = "_blank";
                 profile.href = `//gate.eveonline.com/Profile/${escape(name)}`;
                 profile.innerHTML = `<i class="fa fa-external-link" />`;
+                profile.rel = "noreferrer";
+                profile.title = `Character: ${name}`;
             namelist.children[0].appendChild(profile);
 
             getCharacterAssociation(name).then(res => res.forEach(entity => {
                 var type = entity.member_count !== undefined ? "Corporation" : "Alliance";
                 var h = document.createElement("h2");
-                    h.innerHTML = `${type}: <a href="//gate.eveonline.com/${type}/${escape(entity[type.toLowerCase() + "_name"])}" target="_blank">${entity[type.toLowerCase() + "_name"]}</a>`;
+                    h.innerHTML = `<a title="${type}: ${entity[type.toLowerCase() + "_name"]}" rel="noreferrer" href="//gate.eveonline.com/${type}/${escape(entity[type.toLowerCase() + "_name"])}" target="_blank"><i>${entity[type.toLowerCase() + "_name"]}</i></a>`;
                 namelist.insertBefore(h, before);
             }));
         }
