@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.3
+// @version      1.0.5
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
-// @match        https://meta.eveonline.com/*
+// @match        https://forums.eveonline.com/*
 // @grant        none
 // @downloadURL  https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.user.js
 // @updateURL    https://raw.githubusercontent.com/Robbilie/tampermonkey-scripts/master/eveo-forums-assoc.user.js
