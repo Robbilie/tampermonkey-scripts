@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.5
+// @version      1.0.6
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://forums.eveonline.com/*
@@ -24,7 +24,7 @@ window.addEventListener("load", function () {
 
             var profile = document.createElement("a");
                 profile.target = "_blank";
-                profile.href = `//gate.eveonline.com/Profile/${escape(name)}`;
+                profile.href = `//evewho.com/pilot/${escape(name)}`;
                 profile.innerHTML = `<i class="fa fa-external-link" />`;
                 profile.rel = "noreferrer";
                 profile.title = `Character: ${name}`;
@@ -32,8 +32,9 @@ window.addEventListener("load", function () {
 
             getCharacterAssociation(name).then(res => res.forEach(entity => {
                 var type = entity.member_count !== undefined ? "Corporation" : "Alliance";
+                var type2 = entity.member_count !== undefined ? "corp" : "alli";
                 var h = document.createElement("h2");
-                    h.innerHTML = `<a title="${type}: ${entity[type.toLowerCase() + "_name"]}" rel="noreferrer" href="//gate.eveonline.com/${type}/${escape(entity[type.toLowerCase() + "_name"])}" target="_blank"><i>${entity[type.toLowerCase() + "_name"]}</i></a>`;
+                    h.innerHTML = `<a title="${type}: ${entity[type.toLowerCase() + "_name"]}" rel="noreferrer" href="//evewho.com/${type2}/${escape(entity[type.toLowerCase() + "_name"])}" target="_blank"><i>${entity[type.toLowerCase() + "_name"]}</i></a>`;
                 namelist.insertBefore(h, before);
             }));
         }
