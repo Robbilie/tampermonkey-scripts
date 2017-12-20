@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.6
+// @version      1.0.7
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://forums.eveonline.com/*
@@ -34,7 +34,7 @@ window.addEventListener("load", function () {
                 var type = entity.member_count !== undefined ? "Corporation" : "Alliance";
                 var type2 = entity.member_count !== undefined ? "corp" : "alli";
                 var h = document.createElement("h2");
-                    h.innerHTML = `<a title="${type}: ${entity[type.toLowerCase() + "_name"]}" rel="noreferrer" href="//evewho.com/${type2}/${escape(entity[type.toLowerCase() + "_name"])}" target="_blank"><i>${entity[type.toLowerCase() + "_name"]}</i></a>`;
+                    h.innerHTML = `<a title="${type}: ${entity.name}" rel="noreferrer" href="//evewho.com/${type2}/${escape(entity.name)}" target="_blank"><i>${entity.name}</i></a>`;
                 namelist.insertBefore(h, before);
             }));
         }
