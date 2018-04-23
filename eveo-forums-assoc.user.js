@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.7
+// @version      1.0.8
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://forums.eveonline.com/*
@@ -18,9 +18,8 @@ window.addEventListener("load", function () {
     new MutationObserver(mutations => mutations.forEach(mutation => {
         if (mutation.addedNodes.length == 1 && mutation.addedNodes[0].className === "card-content") {
 
-            var namelist = card.children[0].children[1].children[0];
-            var before = namelist.children[namelist.children.length - 1];
-            var name = namelist.children[0].innerText.split("\n")[0].trim();
+            var namelist = card.querySelector(".names");
+            var name = namelist.querySelector(".full-name").innerText.split("\n")[0].trim();
 
             var profile = document.createElement("a");
                 profile.target = "_blank";
@@ -28,14 +27,14 @@ window.addEventListener("load", function () {
                 profile.innerHTML = `<i class="fa fa-external-link" />`;
                 profile.rel = "noreferrer";
                 profile.title = `Character: ${name}`;
-            namelist.children[0].appendChild(profile);
+            namelist.children[0].children[0].appendChild(profile);
 
             getCharacterAssociation(name).then(res => res.forEach(entity => {
                 var type = entity.member_count !== undefined ? "Corporation" : "Alliance";
                 var type2 = entity.member_count !== undefined ? "corp" : "alli";
                 var h = document.createElement("h2");
                     h.innerHTML = `<a title="${type}: ${entity.name}" rel="noreferrer" href="//evewho.com/${type2}/${escape(entity.name)}" target="_blank"><i>${entity.name}</i></a>`;
-                namelist.insertBefore(h, before);
+                namelist.appendChild(h);
             }));
         }
     })).observe(card, { childList: true });
