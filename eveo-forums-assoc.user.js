@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.8
+// @version      1.0.9
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://forums.eveonline.com/*
@@ -27,7 +27,7 @@ window.addEventListener("load", function () {
                 profile.innerHTML = `<i class="fa fa-external-link" />`;
                 profile.rel = "noreferrer";
                 profile.title = `Character: ${name}`;
-            namelist.children[0].children[0].appendChild(profile);
+            namelist.querySelector(".full-name").appendChild(profile);
 
             getCharacterAssociation(name).then(res => res.forEach(entity => {
                 var type = entity.member_count !== undefined ? "Corporation" : "Alliance";
