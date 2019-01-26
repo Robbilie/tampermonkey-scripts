@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         EVE Online Forums Character association
 // @namespace    https://github.com/Robbilie/tampermonkey-scripts/
-// @version      1.0.9
+// @version      1.0.10
 // @description  add character association to user popups
 // @author       robbilie@tweetfleet (Robert Schuh)
 // @match        https://forums.eveonline.com/*
@@ -14,6 +14,7 @@ window.addEventListener("load", function () {
     'use strict';
 
     var card = document.getElementById("user-card");
+    var esiBaseUrl = "https://esi.evetech.net/latest";
 
     new MutationObserver(mutations => mutations.forEach(mutation => {
         if (mutation.addedNodes.length == 1 && mutation.addedNodes[0].className === "card-content") {
@@ -40,18 +41,18 @@ window.addEventListener("load", function () {
     })).observe(card, { childList: true });
 
     function getCharacterAssociation (name) {
-        return fetch(`https://esi.tech.ccp.is/latest/search/?categories=character&search=${escape(name)}&strict=true`)
+        return fetch(`${esiBaseUrl}/search/?categories=character&search=${escape(name)}&strict=true`)
         .then(res => res.json())
         .then(res => res.character[0])
-        .then(id => fetch(`https://esi.tech.ccp.is/latest/characters/${id}/`))
+        .then(id => fetch(`${esiBaseUrl}/characters/${id}/`))
         .then(res => res.json())
         .then(res => {
             let requests = [];
             if (res.corporation_id !== undefined) {
-                requests.push(fetch(`https://esi.tech.ccp.is/latest/corporations/${res.corporation_id}/`).then(res => res.json()));
+                requests.push(fetch(`${esiBaseUrl}/corporations/${res.corporation_id}/`).then(res => res.json()));
             }
             if (res.alliance_id !== undefined) {
-                requests.push(fetch(`https://esi.tech.ccp.is/latest/alliances/${res.alliance_id}/`).then(res => res.json()));
+                requests.push(fetch(`${esiBaseUrl}/alliances/${res.alliance_id}/`).then(res => res.json()));
             }
             return Promise.all(requests);
         });
